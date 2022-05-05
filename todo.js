@@ -24,8 +24,8 @@ function add(){
 
 function edit(index){
     var listitem = todo[index];
-    document.getElementById("todoindex").value=index;
-    var x = document.getElementById("todoindex").classList.add('todo');
+    document.getElementById("todo").value=index;
+    var x = document.getElementById("todo").classList.add('todo');
     document.getElementById("new-task").value=listitem;
     document.getElementById('addbtn').style.display = 'none';
     document.getElementById("updatebtn").style = display;
@@ -33,18 +33,18 @@ function edit(index){
 
 function update(){
     var item = document.getElementById("new-task").value;
-    var index = document.getElementById("todoindex").value;
-    var x = document.getElementById("todoindex").className;
+    var index = document.getElementById("todo").value;
+    var x = document.getElementById("todo").className;
     console.log(x);
     if(x == "todo"){
         todo[index]=item;
         display();
-        document.getElementById("todoindex").className="";
+        document.getElementById("todo").className="";
     }
     else{
-        comptodo[index]=item;
-        displaycomp();
-        document.getElementById("todoindex").className="";
+        completedtodo[index]=item;
+        displaycompleted();
+        document.getElementById("todo").className="";
     }
     
     
@@ -59,20 +59,20 @@ function del(index){
 
 function check(index){
     var value = todo[index];
-    comptodo.push(value);
+    completedtodo.push(value);
     todo.splice(index,1);
-    displaycomp();
+    displaycompleted();
     display();
 };
 
 // completed task
-function displaycomp(){
+function displaycompleted(){
     var list = ""
-    comptodo.forEach((element,index) => {
+    completedtodo.forEach((element,index) => {
     var item =`<li>
-    <input type="checkbox" onclick="compcheck(${index})" /><label>${element}</label
-    ><input type="text" /><button class="edit" onclick="compedit(${index})">Edit</button
-    ><button class="delete" onclick="compdel(${index})">Delete</button>
+    <input type="checkbox" onclick="completedcheck(${index})" /><label>${element}</label
+    ><input type="text" /><button class="edit" onclick="completededit(${index})">Edit</button
+    ><button class="delete" onclick="completeddel(${index})">Delete</button>
     </li>`;
     console.log(index)
     list += item;
@@ -81,23 +81,23 @@ function displaycomp(){
 document.getElementById("completed-tasks").innerHTML =list;
 };
 
-function completeddit(index){
-    var listitem = comptodo[index];
-    document.getElementById("todoindex").value=index;
+function completededit(index){
+    var listitem = completedtodo[index];
+    document.getElementById("todo").value=index;
     document.getElementById("new-task").value=listitem;
-    var x = document.getElementById("todoindex").classList.add('comptodo')
+    var x = document.getElementById("todo").classList.add('completedtodo')
     document.getElementById('addbtn').style.display = 'none';
     document.getElementById("updatebtn").style = display;
 };
 function completeddel(index){
-    comptodo.splice(index,1);
-    displaycompleted();
+    completedtodo.splice(index,1);
+    displaycomp();
 };
 
 function completedcheck(index){
-    var value = comptodo[index];
+    var value = completedtodo[index];
     todo.push(value);
-    comptodo.splice(index,1);
+    completedtodo.splice(index,1);
     displaycompleted();
     display();
 };
